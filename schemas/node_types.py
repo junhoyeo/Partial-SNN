@@ -4,4 +4,7 @@ class NodeTypes:
     self.DEFAULT = 1
     self.OUTPUT = 2
 
-nodeTypes = NodeTypes()
+  def get_repr(self, type_id: int):
+    return ['INPUT', 'DEFAULT', 'OUTPUT'][type_id]
+
+node_types = NodeTypes()
