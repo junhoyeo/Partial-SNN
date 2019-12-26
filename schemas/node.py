@@ -1,6 +1,8 @@
 from .model import Model
 from .node_types import node_types
 
+import math
+
 class Node:
   def __init__(self, node_type: int, x: int, y: int, z: int = 0):
     self.axon: float = 1.0
@@ -31,7 +33,13 @@ class Node:
       )
     ]
 
-  def spike(self):
+  def get_dist(self, target):
+    return math.sqrt(
+      (self.x - target.x) ** 2 +
+      (self.y - target.y) ** 2
+    )
+
+  def spike(self, time = 0):
     if self.type == node_types.HIDDEN:
       if self.refrac:
         self.refrac -= 1
@@ -39,14 +47,15 @@ class Node:
       else:
         self.refrac = 5
     elif self.type == node_types.INPUT:
-      self.next += 1
+      self.next = time + 1
 
     print(f'[*] ⚡️ Spiked {self}!')
     for node in self.others:
-      node.voltage += self.theta
-      if node.voltage > node.threshold:
-        node.next += 1
-        node.threshold -= node.decay
-        if node.type == node_types.OUTPUT:
-          print(f'[*] 🔥 Spiked Output node {node}!')
-          exit(0)
+      if self.get_dist(node) < 1.5:
+        node.voltage += self.theta
+        if node.voltage > node.threshold:
+          node.next = time + 1
+          node.threshold -= node.decay
+          if node.type == node_types.OUTPUT:
+            print(f'[*] 🔥 Fired Output node {node}!')
+            return True
