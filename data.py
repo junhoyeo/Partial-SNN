@@ -1,5 +1,5 @@
 class TrainData:
-  def __init__(self, x, y):
+  def __init__(self, x: int, y: int):
     self.x: tuple(int, int) = x
     self.y: int = y
 
