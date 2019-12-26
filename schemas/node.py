@@ -1,3 +1,4 @@
+from .model import Model
 from .node_types import node_types
 
 class Node:
@@ -9,6 +10,21 @@ class Node:
     self.y: int = y
     self.z: int = z
     self.type: int = node_type
+    self.others: list = []
 
   def __repr__(self):
     return f'<Node {node_types.get_repr(self.type)} ({self.x}, {self.y}, {self.z})>'
+
+  def update_ref(self, nodes: list):
+    self.others = [
+      node
+      for node in nodes
+      if (
+        node.x != self.x and
+        node.y != self.y and
+        node.type != node_types.INPUT
+      )
+    ]
+
+  def spike(self):
+    print(self.others)

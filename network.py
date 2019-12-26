@@ -1,4 +1,6 @@
 from schemas import Model, Node, node_types
+
+from itertools import chain
 from pprint import pprint
 
 layers = [
@@ -21,5 +23,9 @@ layers = [
 ]
 
 model = Model(layers)
+
+nodes = list(chain.from_iterable(model.layers))
+for node in nodes:
+  node.update_ref(nodes)
 
 pprint(model.layers)
