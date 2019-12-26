@@ -1,6 +1,6 @@
 from schemas import Model, Node, node_types
 
-from itertools import chain
+from itertools import chain, count
 from pprint import pprint
 
 layers = [
@@ -28,4 +28,5 @@ nodes = list(chain.from_iterable(model.layers))
 for node in nodes:
   node.update_ref(nodes)
 
+print('[+] 💡 Created Model!')
 pprint(model.layers)
