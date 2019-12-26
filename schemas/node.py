@@ -7,7 +7,7 @@ class Node:
     self.threshold: float = -52.0
     self.voltage: float = -65.0
     self.theta: float = 0.05
-    self.delay: float = 1
+    self.decay: float = 100.0
     self.x: int = x
     self.y: int = y
     self.z: int = z
@@ -36,6 +36,7 @@ class Node:
       node.voltage += self.theta
       if node.voltage > node.threshold:
         node.next += 1
+        node.threshold -= node.decay
         if node.type == node_types.OUTPUT:
           print(f'[*] 🔥 Spiked Output node {node}!')
           exit(0)
