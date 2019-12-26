@@ -13,6 +13,7 @@ class Node:
     self.z: int = z
     self.type: int = node_type
     self.others: list = []
+    self.next: int = 0
 
   def __repr__(self):
     coord = f'({self.x}, {self.y}, {self.z})'
@@ -30,9 +31,11 @@ class Node:
     ]
 
   def spike(self):
-    print(self.others)
+    print(f'[*] ⚡️ Spiked {self}!')
     for node in self.others:
       node.voltage += self.theta
       if node.voltage > node.threshold:
-        node.spike()
-    print(self.others)
+        node.next += 1
+        if node.type == node_types.OUTPUT:
+          print(f'[*] 🔥 Spiked Output node {node}!')
+          exit(0)

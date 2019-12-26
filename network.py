@@ -1,6 +1,6 @@
 from schemas import Model, Node, node_types
 
-from itertools import chain, count
+from itertools import chain
 from pprint import pprint
 
 layers = [
