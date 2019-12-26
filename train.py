@@ -11,11 +11,10 @@ train: list = [
   TrainData((1, 1), 0),
 ]
 
-for time in count(1):
-  for node in model.layers[0]:
-    node.spike()
+for node in model.layers[0]:
+  node.spike()
 
+for time in count(1):
   for node in nodes:
-    # print(node.next)
     if node.next == time:
       node.spike()

@@ -7,6 +7,7 @@ class Node:
     self.threshold: float = -52.0
     self.voltage: float = -65.0
     self.theta: float = 0.05
+    self.refrac: int = 0
     self.decay: float = 100.0
     self.x: int = x
     self.y: int = y
@@ -31,6 +32,15 @@ class Node:
     ]
 
   def spike(self):
+    if self.type == node_types.HIDDEN:
+      if self.refrac:
+        self.refrac -= 1
+        return
+      else:
+        self.refrac = 5
+    elif self.type == node_types.INPUT:
+      self.next += 1
+
     print(f'[*] ⚡️ Spiked {self}!')
     for node in self.others:
       node.voltage += self.theta
