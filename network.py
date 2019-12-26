@@ -1,11 +1,25 @@
-from schemas import Node, node_types
+from schemas import Model, Node, node_types
 from pprint import pprint
 
-model = [
-  [Node(node_types.INPUT)] * 2,
-  [Node(node_types.HIDDEN)] * 3,
-  [Node(node_types.HIDDEN)] * 2,
-  [Node(node_types.OUTPUT)] * 1,
+layers = [
+  [
+    Node(node_types.INPUT, 0, 1),
+    Node(node_types.INPUT, 0, 2),
+  ],
+  [
+    Node(node_types.HIDDEN, 1, 1),
+    Node(node_types.HIDDEN, 1, 2),
+    Node(node_types.HIDDEN, 1, 3),
+  ],
+  [
+    Node(node_types.HIDDEN, 2, 1),
+    Node(node_types.HIDDEN, 2, 2),
+  ],
+  [
+    Node(node_types.OUTPUT, 3, 1)
+  ],
 ]
 
-pprint(model)
+model = Model(layers)
+
+pprint(model.layers)
